@@ -1,0 +1,41 @@
+html,body{
+	background:#ccc;
+}
+*{
+	margin:0;
+	padding:0;
+}
+.container{
+	display:block;
+	width: 1000px;
+	height:100px;
+	background:#fff;
+	position: relative;
+	cursor:none;
+	overflow: hidden;
+
+}
+.player-car{
+	display:block;
+	width: 50px;
+	height: 21px;
+	background:blue;
+	border-radius: 20%;
+	position: absolute;
+}
+.police-car{
+	display:block;
+	width: 50px;
+	height: 20px;
+	background:red;
+	border-radius: 20%;
+	position: absolute;
+}
+.games-over{
+	width: 100%;
+	color:red;
+	text-align: center;
+	margin-top: 30px;
+	position: absolute;
+}
+#posisi-y{font-size: 10px;}

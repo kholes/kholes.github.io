@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+	<head>
+		<title>TUGAS W2H5 LETS DRIVE</title>
+		<link rel="stylesheet" type="text/css" href="tugas-w2d5.css">
+	</head>
+	<body>
+		<h3>TUGAS W2H5 LETS DRIVE</h3>
+		<div id="container" class="container">
+			<div id="player-car" class="player-car"></div>
+			<div id="posisi-y"></div>
+		</div>
+		<script type="text/javascript">
+			var posX=0;
+			var posY=0;
+			// Control Mouse Player
+			var player=document.getElementById("player-car");
+			document.getElementById("container").onmousemove=function(e){
+				var posX=e.clientX;
+				var posY=e.clientY;
+				player.style.left=posX+"px";
+				player.style.top=posY+"px";
+				document.getElementById("posisi-y").innerHTML=posY;
+			
+			}
+			var player=document.getElementById("player-car");
+			var count=1;
+			var play=setInterval(function(){
+				if(count>=100){
+					clearInterval(play);
+					var winner="<h1 class='games-over'>YOU WIN....!</h1>";
+					document.getElementById('container').innerHTML=winner;
+				}
+				// Timer Police Car to Create and run
+				var n=count%2;
+				var m=count%9;
+				var dt=new Date();
+				var pY=Math.floor(dt*Math.random()%1999/110)+25;
+ 				if(n!=0 && m==1){						
+					var policeCar=new CreateCar('police-car',count,950,pY);
+					policeCar.create(count,950);
+					policeCar.run(count,950);
+				}
+				count +=3;
+			}, 500);
+
+			function CreateCar(cls,mid,x,y){
+				this.cls=cls;
+				this.mid=mid;
+				this.x=x;
+				this.y=y;
+				// Create div elements (police car)
+				this.create = function(){
+					var iDiv = document.createElement('div');
+					iDiv.id = this.mid;
+					iDiv.className = this.cls;
+					document.getElementById("container").appendChild(iDiv);
+					iDiv.innerHTML = "";
+
+					document.getElementById(this.mid).style.left=this.x+"px";
+					document.getElementById(this.mid).style.top=this.y+"px";
+				}
+				//Run police Car from x position
+				this.run = function(mid,x){
+					var interRun=setInterval(function(){
+						var yes=document.getElementById("posisi-y").innerHTML;
+						if(x<=1){
+							clearInterval(interRun);
+							document.getElementById(mid).remove();
+						}else{
+							x-=2;
+							document.getElementById(mid).style.left=x+"px";
+							if(x-50==yes){
+								bumper(yes,y);
+							}else if(posY >= 100){
+								bumper(posY,y);
+							}
+						}
+					}, 0.5);
+				}
+			}
+			function bumper(posY,y){
+				var a=y-10;
+				var b=y+10;
+				var pp=[];
+				for(j=a;j<=b;j++){
+					pp.push(j);
+				}
+				var c=posY-10;
+				var d=posY+10;
+				var wp=[];
+				for(i=c;i<=d;i++){
+					wp.push(i);
+				}
+				console.log(pp);
+				console.log(wp);
+				var yBump= wp[0]==pp[0] || wp[0]==pp[1] || wp[0]==pp[2] || wp[0]==pp[3] || wp[0]==pp[4] || wp[0]==pp[5] || wp[0]==pp[6] || wp[0]==pp[7] || wp[0]==pp[9] || wp[0]==pp[9] || wp[1]==pp[0] || wp[1]==pp[1] || wp[1]==pp[2] || wp[1]==pp[3] || wp[1]==pp[4] || wp[1]==pp[5] || wp[1]==pp[6] || wp[1]==pp[7] || wp[1]==pp[8] || wp[1]==pp[9] || wp[2]==pp[0] || wp[2]==pp[1] || wp[2]==pp[2] || wp[2]==pp[3] || wp[2]==pp[4] || wp[2]==pp[5] || wp[2]==pp[6] || wp[2]==pp[7] || wp[2]==pp[8] || wp[2]==pp[9] || wp[3]==pp[0] || wp[3]==pp[1] || wp[3]==pp[2] || wp[3]==pp[3] || wp[3]==pp[4] || wp[3]==pp[5] || wp[3]==pp[6] || wp[3]==pp[7] || wp[3]==pp[8] || wp[3]==pp[9] || wp[4]==pp[0] || wp[4]==pp[1] || wp[4]==pp[2] || wp[4]==pp[3] || wp[4]==pp[4] || wp[4]==pp[5] || wp[4]==pp[6] || wp[4]==pp[7] || wp[4]==pp[8] || wp[4]==pp[9] || wp[5]==pp[0] || wp[5]==pp[1] || wp[5]==pp[2] || wp[5]==pp[3] || wp[5]==pp[4] || wp[5]==pp[5] || wp[5]==pp[6] || wp[5]==pp[7] || wp[5]==pp[8] || wp[5]==pp[9] || wp[6]==pp[0] || wp[6]==pp[1] || wp[6]==pp[2] || wp[6]==pp[3] || wp[6]==pp[4] || wp[6]==pp[5] || wp[6]==pp[6] || wp[6]==pp[7] || wp[6]==pp[8] || wp[6]==pp[9] || wp[7]==pp[0] || wp[7]==pp[1] || wp[7]==pp[2] || wp[7]==pp[3] || wp[7]==pp[4] || wp[7]==pp[5] || wp[7]==pp[6] || wp[7]==pp[7] || wp[7]==pp[8] || wp[7]==pp[9] || wp[8]==pp[0] || wp[8]==pp[1] || wp[8]==pp[2] || wp[8]==pp[3] || wp[8]==pp[4] || wp[8]==pp[5] || wp[8]==pp[6] || wp[8]==pp[7] || wp[8]==pp[8] || wp[8]==pp[9] || wp[9]==pp[0] || wp[9]==pp[1] || wp[9]==pp[2] || wp[9]==pp[3] || wp[9]==pp[4] || wp[9]==pp[5] || wp[9]==pp[6] || wp[9]==pp[7] || wp[9]==pp[8] || wp[9]==pp[9];
+				if(yBump){
+					var winner="<h1 class='games-over'>GAMES OVER....!</h1>";
+					document.getElementById('container').innerHTML=winner;
+					clearInterval(play);
+				}
+			}
+		</script>
+	</body>
+</html>
